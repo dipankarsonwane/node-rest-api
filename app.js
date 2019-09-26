@@ -4,21 +4,7 @@ const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 
-//Postgres connection
-const { Pool, Client } = require("pg");
-const connectionString = "postgressql://test:test@localhost:5432/test";
-
-//making a pg client instance
-const client = new Client({
-  connectionString: connectionString
-});
-client.connect();
-client.query("select* from product", (err, res) => {
-  console.log(err, res);
-  client.end();
-});
-
-const employeeRoutes = require("./routes/employees");
+const ControllerRoutes = require("./routes/Controller");
 
 //For DB connections
 // mongoose.connect("", { useMongoClient: true });
@@ -44,7 +30,7 @@ app.use((req, res, next) => {
 });
 
 //to specify which route file to pick
-app.use("/api", employeeRoutes);
+app.use("/api", ControllerRoutes);
 
 //Error handling
 app.use((req, res, next) => {
